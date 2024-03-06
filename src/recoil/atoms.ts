@@ -2,7 +2,7 @@ import { atom } from "recoil";
 import { PropertyType } from "../components/PropertySelector";
 
 export interface rentedPropertiesType {
-  id: number,
+  id: string,
   property: PropertyType,
   initialDay: string,
   finalDay: string,

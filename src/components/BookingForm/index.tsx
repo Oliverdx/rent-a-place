@@ -58,7 +58,7 @@ const BookingForm: React.FC = () => {
 
     setBookingList((oldBookedProperties) => {
 
-      const bookedId = editing ? editRentedProperty.id : oldBookedProperties.length + 1;
+      const bookedId = editing ? editRentedProperty.id : Math.random().toString(36);
       const rentedBook = {
         id: bookedId,
         property: property as PropertyType,
