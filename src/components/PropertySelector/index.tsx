@@ -37,16 +37,17 @@ const PropertySelector = ({ selectedProperty, selectProperty }: PropertySelector
 
   }
 
-  return <PropertySelectorWrapper>
+  return <PropertySelectorWrapper data-cy="rented-book-list">
     {mockProperties.map((property) => {
 
       return <PropertyButton
         key={property.type.toLocaleLowerCase()}
         className={`${selectedItem === property.type ? "active" : ""}`}
         onClick={() => propertyHandler(property.type)}
+        data-cy="property-selector"
       >
-        <PropertyImage src={property.icon} />
-        <span>{property.label}</span>
+        <PropertyImage data-cy="rented-book-icon" src={property.icon} />
+        <span data-cy="rented-book-title">{property.label}</span>
       </PropertyButton>
     })}
 
