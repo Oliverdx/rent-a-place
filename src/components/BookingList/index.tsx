@@ -25,7 +25,7 @@ const BookingList: React.FC = () => {
   return (
     <BookingListWrapper>
       <Subtitle>Your Booked Rents</Subtitle>
-      <RentList >
+      <RentList data-cy="booked-list" >
         {rents?.length > 0 && rents.map(rent => (
           <RentedBook
             key={rent.id}

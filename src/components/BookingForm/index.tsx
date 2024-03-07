@@ -126,11 +126,13 @@ const BookingForm: React.FC = () => {
           selectDay={(date => validateDate(date, 'initial'))}
           type={'initial'}
           selectedDay={initialDay}
+          data-cy="input-initial-day"
         />
         <DateSelector
           selectDay={(date => validateDate(date, 'final'))}
           type={'final'}
           selectedDay={finalDay}
+          data-cy="input-final-day"
         />
       </InputWrapper>
       <InputWrapper $verticalAlign={true}>

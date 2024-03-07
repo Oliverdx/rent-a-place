@@ -1,9 +1,13 @@
-import React from 'react'
 import BookingForm from './index'
+import { RecoilRoot } from 'recoil'
 
 describe('<BookingForm />', () => {
-  it('renders', () => {
-    // see: https://on.cypress.io/mounting-react
-    cy.mount(<BookingForm />)
-  })
+  it('should render Booking form component correctly', () => {
+
+    cy.mount(
+      <RecoilRoot>
+        <BookingForm />
+      </RecoilRoot>
+    )
+  });
 })
