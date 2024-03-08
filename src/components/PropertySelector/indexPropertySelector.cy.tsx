@@ -21,7 +21,11 @@ describe('PropertySelector Component', () => {
 
     // Check if the component render with the provided data
     cy.get('[data-cy=rented-book-list]').within(() => {
-      cy.get('[data-cy=property-selector]').should('exist');
+
+      mockProperties.forEach((property) => {
+        cy.get(`[data-cy=property-selector-${property.type}]`).should('exist');
+      });
+
       cy.get('[data-cy=rented-book-icon]').should('exist');
       cy.get('[data-cy=rented-book-title]').should('exist');
 
@@ -37,7 +41,7 @@ describe('PropertySelector Component', () => {
     );
 
     mockProperties.forEach((property) => {
-      cy.get('[data-cy=property-selector]').contains(property.label).should('exist');
+      cy.get(`[data-cy=property-selector-${property.type}]`).contains(property.label).should('exist');
     });
 
   });
@@ -48,7 +52,7 @@ describe('PropertySelector Component', () => {
 
     // Ensure "House" is active and others are not
     mockProperties.forEach((property) => {
-      cy.get(`[data-cy=property-selector]:contains(${property.label})`)
+      cy.get(`[data-cy=property-selector-${property.type}]:contains(${property.label})`)
         .should(property.type === 'house' ? 'have.class' : 'not.have.class', 'active');
     });
 

@@ -44,7 +44,7 @@ const PropertySelector = ({ selectedProperty, selectProperty }: PropertySelector
         key={property.type.toLocaleLowerCase()}
         className={`${selectedItem === property.type ? "active" : ""}`}
         onClick={() => propertyHandler(property.type)}
-        data-cy="property-selector"
+        data-cy={`property-selector-${property.type}`}
       >
         <PropertyImage data-cy="rented-book-icon" src={property.icon} />
         <span data-cy="rented-book-title">{property.label}</span>

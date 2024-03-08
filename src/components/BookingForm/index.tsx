@@ -146,7 +146,9 @@ const BookingForm: React.FC = () => {
 
       <BookButton
         disabled={!validateData}
-        onClick={handleBooking}>
+        onClick={handleBooking}
+        data-cy="schedule-btn"
+      >
         Schedule now
       </BookButton>
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
