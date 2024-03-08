@@ -14,18 +14,20 @@ import {
   InputWrapper,
   ErrorMessage
 } from './style';
+import hasScheduleConflict from '../../util/scheduleConflict';
 
 
 
 const BookingForm: React.FC = () => {
-  const [initialDay, setInitialDay] = useState<string>();
-  const [finalDay, setFinalDay] = useState<string>();
+  const [initialDay, setInitialDay] = useState<string>("");
+  const [finalDay, setFinalDay] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
   const [error, setError] = useState<string>();
   const [property, setProperty] = useState<PropertyType>({} as PropertyType);
   const [editing, setEditing] = useState(false);
 
   const editRentedProperty: rentedPropertiesType = useRecoilValue(editBookedProperty);
+  const scheduleProperties: rentedPropertiesType[] = useRecoilValue(rentedProperties);
   const setBookingList = useSetRecoilState(rentedProperties);
   const resetEditing = useResetRecoilState(editBookedProperty);
 
@@ -56,33 +58,40 @@ const BookingForm: React.FC = () => {
 
   const handleBooking = () => {
 
-    setBookingList((oldBookedProperties) => {
-
-      const bookedId = editing ? editRentedProperty.id : Math.random().toString(36);
-      const rentedBook = {
-        id: bookedId,
-        property: property as PropertyType,
-        initialDay: initialDay as string,
-        finalDay: finalDay as string,
-        price: price as number,
-      };
-
-      if (Object.keys(editRentedProperty).length === 0) {
-        return [rentedBook, ...oldBookedProperties];
+    if (initialDay !== "" && finalDay !== "") {
+      if (hasScheduleConflict({ initialDay, finalDay }, scheduleProperties)) {
+        setError('There is a conflict in the days your are trying to book, please check and change the dates');
       } else {
-        const replaceIndex = oldBookedProperties.findIndex(property => property.id === rentedBook.id);
-        const newBookedProperties = [...oldBookedProperties];
-        newBookedProperties.splice(replaceIndex, 1, rentedBook);
-        newBookedProperties.sort();
+        setBookingList((oldBookedProperties) => {
 
-        return newBookedProperties;
+          const bookedId = editing ? editRentedProperty.id : Math.random().toString(36);
+          const rentedBook = {
+            id: bookedId,
+            property: property as PropertyType,
+            initialDay: initialDay as string,
+            finalDay: finalDay as string,
+            price: price as number,
+          };
+
+          if (Object.keys(editRentedProperty).length === 0) {
+            return [rentedBook, ...oldBookedProperties];
+          } else {
+            const replaceIndex = oldBookedProperties.findIndex(property => property.id === rentedBook.id);
+            const newBookedProperties = [...oldBookedProperties];
+            newBookedProperties.splice(replaceIndex, 1, rentedBook);
+            newBookedProperties.sort();
+
+            return newBookedProperties;
+          }
+
+        });
+
+        setEditing(false);
+        resetEditing();
+        cleanForm();
+
       }
-
-    });
-
-    setEditing(false);
-    resetEditing();
-    cleanForm();
+    }
   };
 
   const validateDate = (value: string, type: string) => {
