@@ -16,7 +16,7 @@ const BookingList: React.FC = () => {
     setEditBooking(rent);
   };
 
-  const deleteProperty = (id: number) => {
+  const deleteProperty = (id: string) => {
     const newBookedRents = rents.filter(rent => rent.id !== id);
     setBookingList(newBookedRents);
   };
@@ -25,8 +25,8 @@ const BookingList: React.FC = () => {
   return (
     <BookingListWrapper>
       <Subtitle>Your Booked Rents</Subtitle>
-      <RentList >
-        {rents && rents.map(rent => (
+      <RentList data-cy="booked-list" >
+        {rents?.length > 0 && rents.map(rent => (
           <RentedBook
             key={rent.id}
             rent={rent}

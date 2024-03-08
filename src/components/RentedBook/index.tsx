@@ -14,7 +14,7 @@ import { useRecoilValue } from "recoil";
 interface rentedPropertyType {
   rent: rentedPropertiesType;
   editProperty: (rent: rentedPropertiesType) => void;
-  deleteProperty: (rent: number) => void;
+  deleteProperty: (rent: string) => void;
 }
 
 
@@ -36,13 +36,13 @@ const RentedBook = ({ rent, editProperty, deleteProperty }: rentedPropertyType) 
 
 
   return (
-    <RentedBookWrapper className={isEditing ? "editing" : ""}>
+    <RentedBookWrapper className={isEditing ? "editing" : ""} data-cy="rented-book">
       {isEditing && <span className={isEditing ? "edit-label" : ""}>Editing...</span>}
       <FloatingIcons>
-        <button onClick={editBooking}>
+        <button onClick={editBooking} data-cy="edit-button">
           <img src={editIcon} alt="Edit" />
         </button>
-        <button onClick={() => deleteProperty(rent.id)}>
+        <button onClick={() => deleteProperty(rent.id)} data-cy="delete-button">
           <img src={deleteIcon} alt="Delete" />
         </button>
       </FloatingIcons>

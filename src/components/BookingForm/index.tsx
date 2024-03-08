@@ -126,11 +126,13 @@ const BookingForm: React.FC = () => {
           selectDay={(date => validateDate(date, 'initial'))}
           type={'initial'}
           selectedDay={initialDay}
+          data-cy="input-initial-day"
         />
         <DateSelector
           selectDay={(date => validateDate(date, 'final'))}
           type={'final'}
           selectedDay={finalDay}
+          data-cy="input-final-day"
         />
       </InputWrapper>
       <InputWrapper $verticalAlign={true}>
@@ -144,7 +146,9 @@ const BookingForm: React.FC = () => {
 
       <BookButton
         disabled={!validateData}
-        onClick={handleBooking}>
+        onClick={handleBooking}
+        data-cy="schedule-btn"
+      >
         Schedule now
       </BookButton>
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}

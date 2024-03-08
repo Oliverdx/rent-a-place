@@ -9,7 +9,7 @@ interface DateSelectorProps {
 }
 
 
-const DateSelector = ({ type, selectDay, selectedDay = "" }: DateSelectorProps) => {
+const DateSelector = ({ type, selectDay, selectedDay = "", ...props }: DateSelectorProps) => {
 
   const [selected, setSelected] = useState<string>("");
 
@@ -30,6 +30,7 @@ const DateSelector = ({ type, selectDay, selectedDay = "" }: DateSelectorProps) 
       min={dayjs().format('YYYY-MM-DD')}
       value={selected}
       onChange={((e) => handleSelectDate(e.target.value))}
+      {...props}
     />
   </DateSelectorWrapper>
 };
